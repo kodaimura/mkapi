@@ -1,7 +1,7 @@
 (ns mkapi.handler
   (:require 
     [reitit.ring :as ring]
-    [mkapi.db :refer [db sql-query]]
+    [mkapi.util :as util]
     [mkapi.middleware :as middleware]))
 
 
@@ -11,18 +11,10 @@
 
 (defn post-inquiry
   [req]
-  (let [params (req :params)
-        sql [
-        "insert into inquiry (
-          corporation, name, name_ruby, mail_address, phone_no, body
-        ) values (?, ?, ?, ?, ?, ?)"
-        (params :corporation)
-        (params :name)
-        (params :name_ruby)
-        (params :mail_address)
-        (params :phone_no)
-        (params :body)]]
-    (if (sql-query db sql)
+  (let [params (req :params)]
+    (util/send-inquiry-mail params)
+    (util/send-inquiry-confirm-mail params)
+    (if (util/insert-inquiry params)
         {:status 200}
         {:status 500})))
 

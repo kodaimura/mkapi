@@ -1,5 +1,6 @@
 (ns mkapi.main
   (:require 
+    [postal.core :as postal]
     [ring.adapter.jetty9 :as jetty]
     [unilog.config :as unilog]
     [mkapi.handler :refer [handler]]
