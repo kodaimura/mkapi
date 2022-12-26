@@ -1,7 +1,8 @@
 (ns mkapi.util
   (:require
+    [postal.core :as postal]
     [mkapi.db :refer [db sql-query]]
-    [postal.core :as postal]))
+    [env :refer [env]]))
 
 
 (defn make-inquiry-mail-body
@@ -23,6 +24,11 @@
 (defn send-inquiry-confirm-mail
   [params]
   (postal/send-message
+    {:host (env :mail-server-host)
+     :user "murakami@pgkodai.com"
+     :pass (env :mail-server-password)
+     :port 587
+     :tls true}
     {:from "murakami@pgkodai.com"
      :to (params :mail_address)
      :subject "【お問合せ確認】村上晃大"
