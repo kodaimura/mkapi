@@ -1,4 +1,4 @@
-(ns env)
+(ns mkapi.env)
 
 (def env
   {:mail-server-host (System/getenv "MAIL_SERVER_HOST")

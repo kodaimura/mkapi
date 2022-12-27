@@ -5,7 +5,7 @@
     [unilog.config :as unilog]
     [mkapi.handler :refer [handler]]
     [mkapi.config :as config]
-    [env :refer [env check-env]]))
+    [mkapi.env :refer [env check-env]]))
 
 
 (defn init-logging! 
@@ -22,4 +22,4 @@
       {:host (get-in config [:webserver :host]) 
        :port (get-in config [:webserver :port])})))
 
-(-main)
+;(-main)

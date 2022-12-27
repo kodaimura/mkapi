@@ -2,7 +2,7 @@
   (:require
     [postal.core :as postal]
     [mkapi.db :refer [db sql-query]]
-    [env :refer [env]]))
+    [mkapi.env :refer [env]]))
 
 
 (defn make-inquiry-mail-body
