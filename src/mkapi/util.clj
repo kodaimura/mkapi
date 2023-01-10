@@ -1,7 +1,8 @@
 (ns mkapi.util
   (:require
+    [next.jdbc.sql :as sql]
     [postal.core :as postal]
-    [mkapi.db :refer [db sql-query]]
+    [mkapi.db :refer [db]]
     [mkapi.env :refer [env]]))
 
 
@@ -33,7 +34,7 @@
      :to (params :mail_address)
      :subject "【お問合せ確認】村上晃大"
      :body (str "お世話になっております。村上晃大です。\n"
-                "この度はお問合せいただき、ありがとうございます。\n"
+                "お問合せいただき、ありがとうございます。\n"
                 "下記内容で受信致しました。\n"
                 "2~3日以内に【murakami@pgkodai.com】より、ご連絡いたします。\n"
                 "\n"
@@ -43,7 +44,7 @@
                 "よろしくお願いいたします。")
     }))
 
-(defn insert-inquiry
+(defn insert-inquiry!
   [params]
   (let [sql [
       "insert into inquiry (
@@ -55,5 +56,5 @@
       (params :mail_address)
       (params :phone_no)
       (params :body)]]
-    (sql-query db sql)))
+    (sql/query db sql)))
 

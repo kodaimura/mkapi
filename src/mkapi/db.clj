@@ -1,21 +1,10 @@
 (ns mkapi.db
-  (:import [java.sql SQLException])
   (:require
-   [next.jdbc.sql :as sql]
-   [clojure.tools.logging :as log]))
+   [next.jdbc.sql :as sql]))
 
 
 (def db {:dbtype "sqlite"
          :dbname "db/mkapi.db"})
-
-(defn sql-query
-  [ds query]
-  (try 
-    (sql/query ds query)
-    true
-    (catch SQLException e#
-      (log/error e#)
-      false)))
 
 (defn create-inquiry []
   (let [sql "create table if not exists inquiry (

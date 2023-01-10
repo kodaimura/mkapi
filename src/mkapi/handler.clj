@@ -14,9 +14,10 @@
   (let [params (req :params)]
     (util/send-inquiry-mail params)
     (util/send-inquiry-confirm-mail params)
-    (if (util/insert-inquiry params)
-        {:status 200}
-        {:status 500})))
+    (try (util/insert-inquiry! params)
+      {:status 200}
+      (catch Exception _
+        {:status 500}))))
 
 
 (def api-routes
