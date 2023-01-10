@@ -8,11 +8,11 @@
 
 (defn make-inquiry-mail-body
   [params]
-  (str "会社名:　　" (params :corporation) "\n"
-       "お名前:　　" (params :name) " (" (params :name_ruby) ") 様\n"
-       "メール:　　" (params :mail_address) "\n"
-       "電話番号:　" (params :phone_no) "\n\n"
-       (params :body) "\n"))
+  (str "会社名:　　" (:corporation params) "\n"
+       "お名前:　　" (:name params) " (" (:name_ruby params) ") 様\n"
+       "メール:　　" (:mail_address params) "\n"
+       "電話番号:　" (:phone_no params) "\n\n"
+       (:body params) "\n"))
 
 (defn send-inquiry-mail
   [params]
@@ -25,13 +25,13 @@
 (defn send-inquiry-confirm-mail
   [params]
   (postal/send-message
-    {:host (env :mail-server-host)
+    {:host (:mail-server-host env)
      :user "murakami@pgkodai.com"
-     :pass (env :mail-server-password)
+     :pass (:mail-server-password env)
      :port 587
      :tls true}
     {:from "murakami@pgkodai.com"
-     :to (params :mail_address)
+     :to (:mail_address params)
      :subject "【お問合せ確認】村上晃大"
      :body (str "お世話になっております。村上晃大です。\n"
                 "お問合せいただき、ありがとうございます。\n"
@@ -50,11 +50,11 @@
       "insert into inquiry (
         corporation, name, name_ruby, mail_address, phone_no, body
       ) values (?, ?, ?, ?, ?, ?)"
-      (params :corporation)
-      (params :name)
-      (params :name_ruby)
-      (params :mail_address)
-      (params :phone_no)
-      (params :body)]]
+      (:corporation params)
+      (:name params)
+      (:name_ruby params)
+      (:mail_address params)
+      (:phone_no params)
+      (:body params)]]
     (sql/query db sql)))
 

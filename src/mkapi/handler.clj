@@ -11,7 +11,7 @@
 
 (defn post-inquiry
   [req]
-  (let [params (req :params)]
+  (let [params (:params req)]
     (util/send-inquiry-mail params)
     (util/send-inquiry-confirm-mail params)
     (try (util/insert-inquiry! params)
