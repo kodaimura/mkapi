@@ -1,4 +1,5 @@
-(ns mkapi.main
+(ns mkapi.core
+  (:gen-class)
   (:require 
     [postal.core :as postal]
     [ring.adapter.jetty9 :as jetty]
@@ -14,7 +15,7 @@
 
 (defn -main 
   [& args]
-  (let [config (config/read-config :dev)]
+  (let [config (config/read-config :prod)]
     (check-env env)
     (init-logging! config)
     (jetty/run-jetty 
