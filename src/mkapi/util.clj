@@ -17,6 +17,11 @@
 (defn send-inquiry-mail
   [params]
   (postal/send-message
+    {:host (:mail-server-host env)
+     :user "contact@murakamikodai.com"
+     :pass (:mail-server-password env)
+     :port 587
+     :tls true}
     {:from "form@murakamikodai.com"
      :to "contact@murakamikodai.com"
      :subject "【お問い合わせフォーム】"
