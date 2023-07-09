@@ -6,10 +6,17 @@
     [mkapi.env :refer [env]]))
 
 
+;(defn make-inquiry-mail-body
+;  [params]
+;  (str "会社名:　　" (:corporation params) "\n"
+;       "お名前:　　" (:name params) " (" (:name_ruby params) ") 様\n"
+;       "メール:　　" (:mail_address params) "\n"
+;       "電話番号:　" (:phone_no params) "\n\n"
+;       (:body params) "\n"]))
+
 (defn make-inquiry-mail-body
   [params]
-  (str "会社名:　　" (:corporation params) "\n"
-       "お名前:　　" (:name params) " (" (:name_ruby params) ") 様\n"
+  (str "お名前:　　" (:name params) " 様\n"
        "メール:　　" (:mail_address params) "\n"
        "電話番号:　" (:phone_no params) "\n\n"
        (:body params) "\n"))
